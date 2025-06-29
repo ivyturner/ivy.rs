@@ -1,0 +1,17 @@
+---
+import { getBlogPosts } from "~/lib/content/blog";
+import BlogPost from "./BlogPost.astro";
+
+const data = await getBlogPosts();
+const { limit = 1000 } = Astro.props;
+
+const posts = data.slice(0, limit);
+---
+
+<ul class="mt-4">
+  {
+    posts.map((i) => (
+      <BlogPost post={i} /> 
+    ))
+  }
+</ul>

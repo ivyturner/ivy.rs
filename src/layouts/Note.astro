@@ -1,0 +1,44 @@
+---
+import Base from "~/layouts/Layout.astro";
+import Link from "~/components/ui/link.astro";
+import { noteTitleConstructor } from "~/lib/meta";
+import { getTypeLink } from "~/lib/content/types";
+
+const { id, src_text, src_url, title, date, type } = Astro.props;
+---
+
+<Base title={noteTitleConstructor(title, date)}>
+  <div class="my-12">
+  </div>
+  <p>A note on ivy.rs</p>
+  <Link href=`/${getTypeLink(type)}` icon="fa-solid fa-arrow-left"
+    >Go back and see some more notes</Link
+  >
+  <div class="my-4"></div>
+
+  <slot /> 
+
+  <div class="font-mono text-sm text-gray-dark">
+    <p>---</p>
+    // metadata (mostly to nerd out)
+    <p>
+      {
+        src_text && (
+          <p>source: {src_text}</p>
+        )
+      }
+    </p>
+    <p>
+      {
+        src_url && (
+          <p>
+            source_url:{" "}
+            <a href={src_url}>{src_url}</a>
+          </p>
+        )
+      }
+    </p>
+    <p>id: {id}</p>
+    <p>---</p>
+  </div>
+</Base>

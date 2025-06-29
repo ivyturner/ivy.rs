@@ -1,0 +1,23 @@
+---
+import Link from "~/components/ui/link.astro";
+import Base from "~/layouts/Layout.astro";
+import { setTypeBorder } from "~/lib/content/types";
+
+const { title, back = "/" } = Astro.props;
+---
+
+<Base title={title}>
+  <main
+    class=`h-full min-h-screen md:min-w-120 pt-8 pl-4 md:pl-8 py-8 ${setTypeBorder(Astro.url.pathname)}`
+  >
+    {
+      back && (
+        <Link href={back} icon="fa-solid fa-arrow-left">
+          Go back
+        </Link>
+      )
+    }
+    <h1 class="text-2xl font-bold">{title}</h1>
+    <slot />
+  </main>
+</Base>

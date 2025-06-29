@@ -1,0 +1,37 @@
+---
+import { analyticsSource as source } from "~/lib/analytics";
+
+import { UMAMI_HOST, UMAMI_CODE, GOAT_HOST } from "astro:env/server";
+---
+
+{
+  () => {
+    switch (source()) {
+      case "goat":
+        console.log("using goatcounter");
+
+        return (
+          <script
+            data-goatcounter={GOAT_HOST}
+            async
+            src="//gc.zgo.at/count.js"
+          />
+        );
+      case "umami":
+        console.log("using umami");
+
+        return (
+          <script
+            defer
+            src={`${UMAMI_HOST}/script.js`}
+            data-website-id={UMAMI_CODE}
+          />
+        );
+
+      default:
+        console.log("no analytics!");
+
+        break;
+    }
+  }
+}

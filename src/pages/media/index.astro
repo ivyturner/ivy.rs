@@ -1,0 +1,12 @@
+---
+import Base from "~/layouts/Layout.astro";
+import NoteList from "~/components/content/notes/List.astro";
+import Link from "~/components/ui/link.astro";
+---
+
+<Base title="media journal">
+    <Link href="/" icon="fa-solid fa-arrow-left">Go back</Link>
+    <h2 class="font-bold text-4xl">Media Journal</h2>
+    <div class="py-2"></div>
+    <NoteList type="media" limit={999} />
+</Base>

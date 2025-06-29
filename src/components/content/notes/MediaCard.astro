@@ -1,0 +1,23 @@
+---
+// src/components/notes/MediaCard.astro
+import Card from "./Card.astro";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+	note: CollectionEntry<"media">;
+}
+
+const { note } = Astro.props;
+---
+
+<Card
+  date={note.data.date}
+  type="media"
+  mediaType={note.data.type}
+  tags={note.data.tags}
+  icon={note.data.icon}
+  id={note.id}
+  title={note.data.title}
+>
+  <slot />
+</Card>
