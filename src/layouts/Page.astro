@@ -1,28 +1,23 @@
 ---
-import Layout from "~/layouts/Base.astro";
-import Header from "~/components/ui/Header.astro";
-import Strapline from "~/components/ui/Strapline.astro";
-import Footer from "~/components/ui/Footer.astro";
+import Link from "~/components/ui/link.astro";
+import Base from "~/layouts/Layout.astro";
+import { setTypeBorder } from "~/lib/content/types";
 
-interface Props {
-  title: string,
-  description: string,
-  icon?: string,
-  date?: Date,
-  back?: string,
-  backLabel?: string
-}
-
-const { title, description, icon, date, back, backLabel } = Astro.props;
+const { title, back = "/" } = Astro.props;
 ---
 
-<Layout title={title} description={description} date={date}>
-  <div>
-    <Header />
-    <main class="ml-8">
-      <Strapline title={title} description={description} icon={icon} date={date} back={back} backLabel={backLabel} />
-      <slot />
-    </main>
-    <Footer />
-  </div>
-</Layout>
+<Base title={title}>
+  <main
+    class=`h-full min-h-screen md:min-w-120 pt-8 pl-4 md:pl-8 py-8 ${setTypeBorder(Astro.url.pathname)}`
+  >
+    {
+      back && (
+        <Link href={back} icon="fa-solid fa-arrow-left">
+          Go back
+        </Link>
+      )
+    }
+    <h1 class="text-2xl font-bold">{title}</h1>
+    <slot />
+  </main>
+</Base>

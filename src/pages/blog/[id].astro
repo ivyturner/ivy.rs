@@ -1,13 +1,12 @@
 ---
-import Page from "~/layouts/Page.astro";
-import Prose from "~/components/ui/Prose.astro"
-import { getCollection, render } from "astro:content";
-import { getPublishedAndSortedPosts } from "~/lib/blog";
-import AgeWarning from "~/components/blog/AgeWarning.astro";
-import StyledLink from "~/components/util/StyledLink.astro";
-// 1. Generate a new path for every collection entry
+import { render } from "astro:content";
+import Prose from "~/components/ui/prose.astro";
+import Layout from "~/layouts/Page.astro";
+import { getBlogPosts } from "~/lib/content/blog";
+import { formattedDate } from "~/lib/time";
+
 export async function getStaticPaths() {
-  const posts = await getPublishedAndSortedPosts(await getCollection("blog"));
+  const posts = await getBlogPosts();
   return posts.map((post) => ({
     params: { id: post.id },
     props: { post },
@@ -16,33 +15,51 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const formatValue = (
+  value: string | object | Array<string> | Date | boolean
+): string => {
+  if (Array.isArray(value)) {
+    return value.join(", ");
+  }
+  
+  if (value instanceof Date) {
+    return formattedDate(value, false);
+  }
+
+  if (typeof value === "object" && value !== null) {
+    return JSON.stringify(value, null, 2);
+  }
+  return String(value);
+};
+
+const ifKeyImportant = (key: string): boolean => {
+  const importantKeys = ["title", "tldr"];
+  return importantKeys.includes(key);
+};
 ---
 
-<Page
-  title={post.data.title}
-  description={post.data.description}
-  date={post.data.date}
-  icon={post.data.icon}
-  back="/blog"
->
-  <AgeWarning date={post.data.date} />
+<Layout back={null}>
+  <p class="text-gray text-sm">---</p>
+  {
+    Object.entries(post.data).map(([key, value]) => (
+      <p
+        class={
+          (ifKeyImportant(key) && "text-yang text-base") || "text-gray text-sm"
+        }
+      >
+        {key}: {formatValue(value)}
+      </p>
+    ))
+  }
+  <p class="text-gray text-sm">---</p>
+  <div
+    class="my-4"
+  >
   <Prose>
     <Content />
   </Prose>
-
-  <div class="mt-4">
-    <hr>
-    <StyledLink xstyle="mb-2" href=`mailto:blog@ivy.rs?subject=Reply to ${post.data.title}``>Reply by email</StyledLink>
-    <i class="fa-solid fa-hashtag ml-4 mr-1"></i>
-    {
-      (post.data.tags ?? []).map((tag) => (
-        <a
-          class="bg-light-pu dark:bg-dark-pu hover:bg-light-ma hover:dark:bg-dark-ma transition-colors text-white px-1 py-0.5 mr-2 last:mr-0 rounded-md text-center inline-block"
-          href={`/blog/tags/${tag}`}
-        >
-          {tag}
-        </a>
-      ))
-    }
   </div>
-</Page>
+  <a href={Astro.url.origin + Astro.url.pathname}>link to this page</a> -
+  <a href="/blog">go back</a>
+</Layout>

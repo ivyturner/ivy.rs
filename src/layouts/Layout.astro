@@ -1,0 +1,24 @@
+---
+import Head from "~/components/util/head.astro";
+import "../styles/global.css";
+import Footer from "~/components/ui/footer.astro";
+import Header from "~/components/ui/header.astro";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <Head title={title}/>
+  
+  <body
+    class="bg-light-bg text-light-tx dark:bg-dark-bg dark:text-dark-tx flex flex-col items-center justify-center pb-16"
+    transition:animate="slide"
+  >
+    <Header />
+    <main class=`h-full min-h-screen`>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

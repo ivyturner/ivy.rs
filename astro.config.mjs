@@ -1,31 +1,64 @@
 // @ts-check
-import { defineConfig, fontProviders } from 'astro/config';
-import config from './src/site.config'
+import { defineConfig, envField } from 'astro/config';
+
+import rehypeSlug from 'rehype-slug'
+import conf from "./src/site.config"
 import tailwindcss from '@tailwindcss/vite';
-import pagefind from "astro-pagefind";
+import mdx from '@astrojs/mdx';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
-  site: config.site.url,
-  prefetch: true,
+  site: "https://ivy.rs",
+
   vite: {
     plugins: [tailwindcss()]
   },
-  integrations: [
-    pagefind()
-  ],
+
+  integrations: [mdx()],
+
   markdown: {
-    shikiConfig: {
-      theme: "gruvbox-dark-soft"
-    },
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          content: {
+            type: 'text',
+            value: '↝',
+          },
+          properties: {
+            className: ['ml-2 no-underline text-light-pu/0 hover:text-light-pu/100 dark:text-dark-pu/0 dark:hover:text-dark-pu/100'],
+          },
+        },
+      ],
+    ]
   },
 
-  experimental: {
-  contentIntellisense: true,
-    fonts: [{
-      provider: fontProviders.google(),
-      name: "Inter",
-      cssVariable: "--fontapi-inter"
-    }]
-  }
+  env: {
+    schema: {
+      ANALYTICS: envField.boolean({ context: 'server', access: "public", default: false, optional: true }),
+      ANALYTICS_SOURCE: envField.enum({ values: ["none", "umami", "goat"], context: 'server', access: 'public', default: "none", optional: true }),
+
+      UMAMI_HOST: envField.string({ context: 'server', access: "public", optional: true }),
+      UMAMI_CODE: envField.string({ context: 'server', access: "secret", optional: true }),
+
+      GOAT_HOST: envField.string({ context: 'server', access: "public", optional: true }),
+
+      GHOST_API_HOST: envField.string({ context: 'server', access: "public", optional: true }),
+      GHOST_API_KEY: envField.string({ context: 'server', access: "secret", optional: true }),
+
+      MINIFLUX_HOST: envField.string({ context: 'server', access: "public", optional: true }),
+      MINIFLUX_KEY: envField.string({ context: 'server', access: "secret", optional: true }),
+
+      WF_KEY: envField.string({ context: 'server', access: "secret", optional: true }),
+
+      LFM_API_KEY: envField.string({ context: 'server', access: "secret", optional: true }),
+
+      GH_PAT: envField.string({ context: 'server', access: "secret", optional: true })
+    }
+  },
+
+  redirects: conf.settings.redirects
 });

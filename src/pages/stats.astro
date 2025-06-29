@@ -1,0 +1,29 @@
+---
+import Page from "~/layouts/Page.astro";
+import { lfmGetTracks } from "~/lib/external/lastfm";
+import { getMinifluxFeedCount } from "~/lib/external/miniflux";
+import { getBlogPosts } from "~/lib/content/blog";
+import { getSiteCommits } from "~/lib/external/github";
+
+// Do all your async work here:
+const feedCount = await getMinifluxFeedCount();
+const blogPosts = await getBlogPosts()
+---
+
+<Page title="Statistics" back="/">
+
+  (( THIS PAGE IS VERY UNFINISHED ))
+  <p>I'm a huge fan of numbers and data, so here's some of mine!</p>
+  <h2 class="text-xl font-bold mt-4 mb-2">My RSS reader</h2>
+  <p>
+    I use a self-hosted instance of
+    <a href="https://miniflux.app">Miniflux</a> and currently subscribe to <strong
+      >{feedCount}</strong
+    > feeds.
+  </p>
+
+  <h2 class="text-xl font-bold mt-4 mb-2">Blogging</h2>
+  so far i've published {blogPosts.length} blog posts.
+  <hr>
+
+</Page>

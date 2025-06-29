@@ -1,5 +1,3 @@
-I'm a musician, student, part-time software developer and writer.
+I'm a [web developer](https://lovecomputer.net) from the [North-East of England](https://en.wikipedia.org/wiki/North_East_England).
 
-I go by **ivyrs**, **ivyneedsrest** or previously `lakerjv, lxjv, losangeles` etc.
-
-I'm currently studying music and performing in a band :3
+I also write, play music, and collect copious amounts of stationary.

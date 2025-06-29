@@ -1,0 +1,31 @@
+---
+import Base from "~/layouts/Note.astro";
+import Card from "~/components/content/notes/LinkCard.astro";
+import { render } from "astro:content";
+import { getLinkNotes } from "~/lib/content/notes";
+
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+	const notes = await getLinkNotes();
+	return notes.map((note) => ({
+		params: { id: note.id },
+		props: { note },
+	}));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<Base
+  title={note.data.title}
+  date={note.data.date}
+  src_text={note.data.source?.text}
+  src_url={note.data.source?.url}
+  id={note.id}
+  type="link"
+>
+  <Card note={note}>
+    <Content />
+  </Card>
+</Base>

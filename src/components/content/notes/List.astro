@@ -1,0 +1,71 @@
+---
+// components/List.astro
+import StatusCard from "./StatusCard.astro";
+import MediaCard from "./MediaCard.astro";
+import LinkCard from "./LinkCard.astro";
+import { render } from "astro:content";
+import {
+	getStatusNotes,
+	getLinkNotes,
+	getMediaNotes,
+	getAllNotes,
+	type AnyNote,
+} from "../../../lib/content/notes";
+
+export interface Props {
+	limit?: number;
+	type?: "status" | "media" | "links" | "all";
+}
+
+const { limit, type = "all" } = Astro.props;
+
+// Get items based on type with proper typing
+let items: AnyNote[];
+switch (type) {
+	case "status":
+		items = await getStatusNotes(limit);
+		break;
+	case "links":
+		items = await getLinkNotes(limit);
+		break;
+	case "media":
+		items = await getMediaNotes(limit);
+		break;
+	default:
+		items = await getAllNotes(limit);
+}
+
+const renderedItems = await Promise.all(
+	items.map(async (note) => ({
+		...note,
+		Content: (await render(note)).Content,
+	})),
+);
+---
+
+<div class="">
+  {
+    renderedItems.map((note) => {
+      // Use type-specific components
+      if (note.collection === "status") {
+        return (
+          <StatusCard note={note}>
+            <note.Content />
+          </StatusCard>
+        );
+      } else if (note.collection === "media") {
+        return (
+          <MediaCard note={note}>
+            <note.Content />
+          </MediaCard>
+        );
+      } else if (note.collection === "links") {
+        return (
+          <LinkCard note={note}>
+            <note.Content />
+          </LinkCard>
+        );
+      }
+    })
+  }
+</div>

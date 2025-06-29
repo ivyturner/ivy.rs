@@ -1,0 +1,71 @@
+---
+import {
+	getTypeStyles,
+	getTypeIcon,
+	getTypeComment,
+	getTypeLink,
+} from "~/lib/content/types";
+import Date from "../../ui/date.astro";
+import Prose from "../../ui/prose.astro";
+
+const { date, type, mediaType, tags, icon, link, content, title, id } =
+	Astro.props;
+---
+
+<article class={`${getTypeStyles(type)} border-l-4 border-double pl-4 py-1 mb-4`}>
+  <!-- Header -->
+  <header class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <i class={`${getTypeIcon(type, mediaType, icon)} text-lg`}></i>
+      <span>{getTypeComment(type, mediaType)}</span>
+    </div>
+
+    <a href={`/${getTypeLink(type)}/${id}`} class="text-gray-dark hover:text-gray transition-colors">
+      <i class="fa-solid fa-calendar-days mr-1"></i>
+      <Date showTime date={date} />
+    </a>
+  </header>
+
+  <!-- Title -->
+  {title && <h2 class="text-xl font-semibold mb-3">{title}</h2>}
+
+  <!-- Content -->
+
+  {
+    link && link.url && (
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mb-1 inline-flex items-center gap-2 text-blue hover:text-blue-light transition-colors"
+      >
+        <i class="fa-solid fa-external-link" />
+        {link.text||link.url}
+      </a>
+    )
+  }
+
+  <Prose>
+    {
+      (content && (
+        <div class="">
+          <Fragment set:html={content} />
+        </div>
+      )) || <slot />
+    }
+  </Prose>
+
+  <!-- Footer -->
+  <footer class="mt-1">
+    <!-- Tags -->
+    {
+      tags && tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 italic">
+          {tags.map((tag) => (
+            <span class="inline-block px-2 py-1 text-gray-dark">#{tag}</span>
+          ))}
+        </div>
+      )
+    }
+  </footer>
+</article>

@@ -1,0 +1,15 @@
+---
+import DateC from "~/components/ui/date.astro";
+const { post: i } = Astro.props;
+---
+
+<div class="pl-4 mb-2 border-l-2 border-l-light-or dark:border-l-dark-or">
+  <a href={`/blog/${i.id}`}>{i.data.title}</a>
+  <p class="text-light-tx-2 dark:text-dark-tx-2">
+    <i class="fa-solid fa-calendar-days mr-1"></i>
+    <span class="font-mono">
+      <DateC date={i.data.date} showTime={false} />
+    </span>
+    {i.data.tldr && <span class="border-l-2 pl-2">{i.data.tldr}</span>}
+  </p>
+</div>

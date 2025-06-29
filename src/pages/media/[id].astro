@@ -1,0 +1,33 @@
+---
+import Base from "~/layouts/Note.astro";
+import Card from "~/components/content/notes/MediaCard.astro";
+import { render } from "astro:content";
+import { getMediaNotes } from "~/lib/content/notes";
+
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+	const notes = await getMediaNotes();
+	return notes.map((note) => ({
+		params: { id: note.id },
+		props: { note },
+	}));
+}
+// 2. For your template, you can get the entry directly from the prop
+const { note } = Astro.props;
+
+const { Content } = await render(note);
+---
+
+<Base
+  id={note.id}
+  src_text={note.data.source && note.data.source.text}
+  src_url={note.data.source && note.data.source.url}
+  date={note.data.date}
+  type="media"
+>
+  <div class="my-4"></div>
+
+  <Card note={note}>
+    <Content />
+  </Card>
+</Base>

@@ -1,0 +1,13 @@
+---
+import { inrPosts } from "~/lib/external/ghost";
+import Card from "./card.astro";
+
+const posts = await inrPosts();
+const latest = posts.slice(0, 1);
+---
+
+{
+  latest.map((i) => {
+    return <Card i={i} />;
+  })
+}
