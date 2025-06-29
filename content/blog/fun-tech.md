@@ -11,4 +11,4 @@ everything is GREY BOX. except my phone. which is A GREEN BOX. MASTERFUL GAMBIT 
 
 ## heading
 
-[lynk](https://github.com/ivyturner/ivy.two)
+[lynk](https://github.com/ivyturner/ivy.rs)
