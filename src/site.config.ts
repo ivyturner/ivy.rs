@@ -26,6 +26,8 @@ export default {
     redirects: {
       // goes to astro config
       "/source": "https://github.com/ivyturner/ivy.rs",
+      "/carry": "/uses",
+      "/defaults": "/uses"
     },
     dev: {
       showDrafts: true,

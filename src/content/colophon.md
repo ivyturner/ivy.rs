@@ -4,7 +4,7 @@ ivy.rs is built using [Astro](https://astro.build) and is hosted by [Love Comput
 
 ivy.rs is styled with [Tailwind CSS](https://tailwindcss.com), because I like how quick it is to make CSS do what I want.
 
-The colorscheme in use is [Uchu](https://uchu.style), because it's simple and cute.
+The colorscheme in use is [Flexoki](https://stephango.com/flexoki), because It's Extremely Pretty.
 
 The fonts are IBM Plex {Sans,Mono}, served by [Bunny Fonts](https://fonts.bunny.net).
 
