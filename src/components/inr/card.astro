@@ -1,0 +1,41 @@
+---
+import { ghostDate } from "~/lib/time";
+import Date from "../ui/date.astro";
+
+const { i } = Astro.props;
+
+const truncateWords = (text: string, wordLimit: number) => {
+	if (!text) return "";
+	const words = text.split(" ");
+	return words.length > wordLimit
+		? words.slice(0, wordLimit).join(" ") + "..."
+		: text;
+};
+---
+
+<article class={`border-l-4 border-l-purple border-double pl-4 py-1 mb-4`}>
+  <!-- Header -->
+  <header class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <i class={`fa-solid fa-signature text-lg`}></i>
+      <span>{"Latest from ivyneeds.rest"}</span>
+    </div>
+
+    <a
+      href={`https://ivyneeds.rest/${i.slug}/`}
+      class="text-gray-dark hover:text-gray transition-colors"
+    >
+      <i class="fa-solid fa-calendar-days mr-1"></i>
+      <Date showTime={false} date={ghostDate(i.published_at)} />
+    </a>
+  </header>
+
+  <!-- Title -->
+  <a href={`https://ivyneeds.rest/${i.slug}/`}>
+    <h2 class="text-xl font-semibold mb-3">{i.title}</h2>
+  </a>
+
+  <span class="text-gray-dark">
+    <Fragment set:text={truncateWords(i.excerpt, 20)} />
+  </span>
+</article>

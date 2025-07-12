@@ -1,0 +1,13 @@
+---
+import Date from "~/components/ui/date.astro";
+import Prose from "~/components/ui/prose.astro";
+import { Content, frontmatter } from "~/content/about.md";
+import Page from "~/layouts/Page.astro";
+---
+
+<Page title="About" back="/">
+    <p>Last updated: <Date showTime={false} date={frontmatter.updated} /></p>
+    <Prose>
+        <Content />
+    </Prose>
+</Page>

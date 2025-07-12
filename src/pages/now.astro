@@ -1,0 +1,40 @@
+---
+import { render } from "astro:content";
+import { getBlogPosts } from "~/lib/content/blog";
+import Page from "~/layouts/Page.astro";
+import Prose from "~/components/ui/prose.astro";
+import DateC from "~/components/ui/date.astro";
+
+async function getLatestNowPost() {
+  const allPosts = await getBlogPosts();
+  const nowPosts = allPosts.filter((post: { data: { tags?: string[] } }) =>
+    post.data.tags?.includes("now")
+  );
+  return nowPosts[0]; // Return only the first post
+}
+const latestPost = await getLatestNowPost(); // Fetch the first post at build time
+
+const { Content } = await render(latestPost);
+---
+
+<Page title="how i'm feeling /now" description="">
+  <DateC date={latestPost.data.date} showTime={false} />
+
+  <div class="my-4 text-pretty">
+    <Prose>
+      <Content />
+    </Prose>
+  </div>
+
+  <p class="text-light-tx-2 dark:text-dark-tx-2">
+    This is a <a href="https://sive.rs/nowff">/now page</a> and
+    <a href="https://nownownow.com/about">you should make one</a>, too. <br />
+    It's generated from the latest post tagged with <a
+      class="text-ml-lavender"
+      href="/blog/tags/now">#now</a
+    >, which currently is <a
+      class="text-ml-lavender"
+      href={`/blog/${latestPost.id}`}>{latestPost.data.title}</a
+    >.
+  </p>
+</Page>

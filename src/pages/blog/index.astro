@@ -1,0 +1,10 @@
+---
+import Layout from "~/layouts/Page.astro";
+import BlogList from "~/components/content/blog/BlogList.astro";
+import Link from "~/components/ui/link.astro";
+---
+
+<Layout title="ivy.rs/blog" back="/">
+  <p class="mt-2"><Link href="/blog/feed.rss">RSS feed</Link></p>
+  <BlogList limit={1001} />
+</Layout>

@@ -1,0 +1,63 @@
+---
+import { ghostDate } from '~/lib/time';
+import Date from '../ui/date.astro';
+
+// src/components/RepoCard.astro
+export interface Props {
+	repo: {
+		name: string;
+		description: string;
+		html_url: string;
+		stargazers_count: number;
+		forks_count: number;
+		language: string;
+		updated_at: string;
+	};
+}
+
+const { repo } = Astro.props;
+const updatedDate = ghostDate(repo.updated_at) 
+---
+
+<article
+  class="border border-gray-200 rounded-lg p-6 bg-white hover:shadow-md transition-all duration-200 hover:-translate-y-1"
+>
+  <header class="flex justify-between items-start mb-3">
+    <h3 class="text-xl font-bold">
+      <a
+        href={repo.html_url}
+        target="_blank"
+        rel="noopener"
+        class="text-blue-600 hover:text-blue-800 hover:underline"
+      >
+        {repo.name}
+      </a>
+    </h3>
+    <Date date={updatedDate} />
+  </header>
+
+  <p class="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3">
+    {repo.description || "No description available"}
+  </p>
+
+  <footer class="flex justify-between items-center">
+    <div class="flex items-center space-x-4 text-sm text-gray-500">
+      <span class="flex items-center">
+        <span class="mr-1">⭐</span>
+        {repo.stargazers_count}
+      </span>
+      <span class="flex items-center">
+        <span class="mr-1">🍴</span>
+        {repo.forks_count}
+      </span>
+    </div>
+
+    {
+      repo.language && (
+        <span class="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">
+          {repo.language}
+        </span>
+      )
+    }
+  </footer>
+</article>

@@ -1,0 +1,10 @@
+---
+import Page from "~/layouts/Page.astro";
+import NoteList from "~/components/content/notes/List.astro";
+import Link from "~/components/ui/link.astro";
+---
+
+<Page title="Links">
+  <p class="my-2"><Link href="feed.rss">RSS feed</Link></p>
+  <NoteList type="links" limit={9999} />
+</Page>
