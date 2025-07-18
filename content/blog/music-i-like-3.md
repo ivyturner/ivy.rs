@@ -16,13 +16,13 @@ WE’RE SO FUCKING BACK.
 I was going to write a blurb about this album but it’s grown to almost an entire blog post…
 coming soon!
 
-<link here>
+[link](https://song.link/https://open.spotify.com/album/28bHj2enHkHVFLwuWmkwlQ?si=64e5aa424dfe41ba)
 
 ## Loyle Carner - hopefully ! (2025)
 
 This album is ABSOLUTELY BEAUTIFUL. I still think his last album _hugo_ is better… but that might be just because that album was literally life-changing for me. Loyle also sings for the first time on this record, it’s nice :)
 
-<lyin video link here>
+[music video for lyin](https://www.youtube.com/watch?v=2T1zfi0xvQc)
 
 ## Clipse - Let God Sort Em Out (2025)
 
@@ -30,7 +30,7 @@ HOLY SHIT. I haven’t listened to the full album yet (the last few weeks have b
 
 Ace Trumpets has been on repeat in my head for weeks. The beat on So Be It is fucking haunting and I love it. I’m not even going to talk about Chains and Whips because this paragraph will be 3 days long.
 
-<chain here>
+[link](https://song.link/https://open.spotify.com/album/17ScNnJ0lSWajodZaRpHdQ?si=E6Mt6DwFSqSbpWo-4ODKtA)
 
 ## The stuff I don’t have much to say about
 
