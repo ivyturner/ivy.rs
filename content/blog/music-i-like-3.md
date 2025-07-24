@@ -35,6 +35,6 @@ Ace Trumpets has been on repeat in my head for weeks. The beat on So Be It is fu
 ## The stuff I don’t have much to say about
 
 - KNEECAP - Fine Art (2024) - free palestine, fuck kier starmer
-- Massive Attack - Safe From Harm (from Blue Lines, 2002) - this bass line is serious, infectious and dangerous
+- Massive Attack - Safe From Harm (from Blue Lines, 1991) - this bass line is serious, infectious and dangerous
 - Kendrick Lamar - GNX (2024) - top 3 album from last year
 - yeule’s cover of Anthems For A Seventeen Year Old Girl from the I Saw The TV Glow soundtrack… god i need to talk about this movie
